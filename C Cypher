@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <string.h>
+#define MAX_LIMIT 60
+int main(){
+    char alphabet[26]={'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+    char Cypher[26];
+    char textLine1[MAX_LIMIT];
+    char textLine2[MAX_LIMIT];
+  
+       for(int i=0;i<26;i++){
+          scanf("%c ",&Cypher[i]);
+       }
+
+     fgets(textLine1, MAX_LIMIT, stdin);
+     fgets(textLine2, MAX_LIMIT, stdin);
+      
+    
+
+
+   
+  for(int i=0;i<strlen(textLine1)-1;i++){
+       for(int j=0;j<26;j++){
+          if(textLine1[i]==alphabet[j]){
+               textLine1[i]=Cypher[j];
+              break;
+           } 
+       }
+   }
+    for(int i=0;i<strlen(textLine2)-1;i++){
+       for(int j=0;j<26;j++){
+          if(textLine2[i]==alphabet[j]){
+               textLine2[i]=Cypher[j];
+              break;
+           } 
+       }
+   }
+    printf("%s",textLine1);
+    printf("%s\n",textLine2);
+    
+   
+ 
+    return 0;
+}
