@@ -34,7 +34,7 @@ int main(){
            } 
        }
    }
-    printf(" %s",textLine1);
+    printf("%s",textLine1);
     printf("%s\n",textLine2);
     
    
