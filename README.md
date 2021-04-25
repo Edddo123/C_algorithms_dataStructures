@@ -1,8 +1,5 @@
 # Demo
-Descritption!
+Data structures and algorithm problems solved in mainly C and some C++
 
 ## Subheader
-Watch youtube
-<html>
-  <p>Heyyyy </p>
-</html>
+
