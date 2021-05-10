@@ -1,28 +1,28 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 int main(){
 	
         unsigned int c;
-        char word[1000][1000] = {0};
-        char reversed[1000][1000] = {0};
+        char word[1000][1000];
+        char reversed[1000][1000];
         int isIdent = 0, i=0, j=0, m=0, f=0, k=0, r=0;
         int correct = 1;
-        int identIndex[100] = {0};
+        int identIndex[10000];
         
 		while(1){
                 c = fgetc(stdin);
-                if (c == EOF) break;
                 
-                word[i][j] = c;
-                j++;
-                
-                if ( (c >= 'a' && c <= 'z') || (c >='A' && c <='Z') || (c == '_') || ( c >= '0' && c <= '9' && isIdent == 1)) { /* if ident only then number is not a prob*/
+                if ( (c >= 'a' && c <= 'z') || (c >='A' && c <='Z') || (c == '_') || ( c >= '0' && c <= '9' && isIdent == 1)) {
+                    word[i][j] = c;
+                    j++;
                    isIdent = 1;
                }
-                else if(c == ' ' || c == '\n') {
-                    
+                else if(c == ' ' || c == '\n' || c==EOF) {
+                    if(c != EOF) {
+                     word[i][j] = c;
+                        j++;
+                    }
                    if(isIdent == 1 && correct == 1) {
                        identIndex[m] = i;
                        m++;
@@ -31,17 +31,18 @@ int main(){
                     j=0;
                     correct = 1;
                     isIdent = 0;
+                    if (c == EOF) break;
+                   
                }
-                else{ /* if((c<'a' || c>'z') && (c<'A' || c>'Z') && (c!= '_') && (c < 0 || c > 9)) */
+                else{ 
                    isIdent = 0;
                    correct = 0;
+                   word[i][j] = c;
+                    j++;
                }
+               
         }
-        
-        /* now I have array of strings and I know which of them are identifiers*/
-        
-        
-        
+
         for(f=0;f<i;f++) {
        
             if(f == identIndex[k]) {
@@ -54,7 +55,7 @@ int main(){
             k++;
             }
         }
-        
+       
         k=0;
         r=0;
         for(f=0;f<i;f++) {
@@ -65,12 +66,12 @@ int main(){
                   word[f][j] = ' ';  
                     }
                     else if (reversed[r][0] == '\n') {
-                       word[f][j] = '\n';  
+                      word[f][j] = '\n';  
                     }
                 }
                 
                  else {
-               word[f][j] = reversed[r][j+1];
+              word[f][j] = reversed[r][j+1];
                  }
             }
             k++;
@@ -78,16 +79,24 @@ int main(){
             }
         }
         
+
         
-        
-        for(f=0;f<=i;f++) {
+        for(f=0;f<i;f++) {
+            if(f!=i) {
             for(j=0;j < strlen(word[f]); j++) {
                 printf("%c", word[f][j]);
+            }
+            }
+            else {
+                for(j=0;j < strlen(word[f]); j++) {
+                printf("%c", word[f][j]);
+            }
             }
             
         }
         
-        
+      
+    
 		
 		return 0;
 }
