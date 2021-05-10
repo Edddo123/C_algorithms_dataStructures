@@ -1,19 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 
-int main(){
-	
-        unsigned int c;
-        char word[1000][1000];
-        char reversed[1000][1000];
-        int isIdent = 0, i=0, j=0, m=0, f=0, k=0, r=0;
-        int correct = 1;
-        int identIndex[10000];
-        
-		while(1){
-                c = fgetc(stdin);
-                
-                if ( (c >= 'a' && c <= 'z') || (c >='A' && c <='Z') || (c == '_') || ( c >= '0' && c <= '9' && isIdent == 1)) {
+void getIdentifiers(int c, char word[1000][1000], int identIndex[10000], int &i, int &j, int &m, int &isIdent, int &correct ) {
+    while(1) {
+        c = fgetc(stdin);
+    if ( (c >= 'a' && c <= 'z') || (c >='A' && c <='Z') || (c == '_') || ( c >= '0' && c <= '9' && isIdent == 1)) {
                     word[i][j] = c;
                     j++;
                    isIdent = 1;
@@ -40,10 +31,11 @@ int main(){
                    word[i][j] = c;
                     j++;
                }
-               
-        }
+    }
+}
 
-        for(f=0;f<i;f++) {
+void reverse(int &f, int identIndex[10000], int k, int &j, int r, int &i, char word[1000][1000], char reversed[1000][1000]) {
+    for(f=0;f<i;f++) {
        
             if(f == identIndex[k]) {
             for(j=0;j < strlen(word[f]); j++) {
@@ -55,10 +47,10 @@ int main(){
             k++;
             }
         }
-       
-        k=0;
-        r=0;
-        for(f=0;f<i;f++) {
+}
+
+void correctSpace(int &f, int identIndex[10000], int k, int &j, int r, int &i, char word[1000][1000], char reversed[1000][1000]) {
+    for(f=0;f<i;f++) {
             if(f == identIndex[k]) {
             for(j=0;j < strlen(word[f]); j++) {
                 if(j==strlen(word[f]) - 1) {
@@ -78,10 +70,10 @@ int main(){
             r++;
             }
         }
-        
+}
 
-        
-        for(f=0;f<i;f++) {
+void write(int &f, int &j, int &i, char word[1000][1000]) {
+    for(f=0;f<i;f++) {
             if(f!=i) {
             for(j=0;j < strlen(word[f]); j++) {
                 printf("%c", word[f][j]);
@@ -94,9 +86,23 @@ int main(){
             }
             
         }
-        
-      
+}
+
+
+int main() {
     
-		
+    unsigned int c;
+    char word[1000][1000];
+    char reversed[1000][1000];
+    int isIdent = 0, i=0, j=0, m=0, f=0, k=0, r=0;
+    int correct = 1;
+    int identIndex[10000];
+
+    getIdentifiers(c, word, identIndex, i, j, m, isIdent, correct);
+    reverse(f, identIndex, k, j, r, i, word, reversed);
+    correctSpace(f, identIndex, k, j, r, i, word, reversed);  
+    write(f, j, i, word);       
+    
+    
 		return 0;
 }
